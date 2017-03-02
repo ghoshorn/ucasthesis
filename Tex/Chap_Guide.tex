@@ -2,20 +2,20 @@
 \chapter{使用简介}
 \label{chap:guide}
 
-为方便使用及更好的展示~\LaTeX{}~排版的优秀特性，本人对模板的框架和文件体系进行了细致地处理，尽可能地对各个功能和板块进行了模块化和封装，对于初学者来说，众多的文件目录也许会让人觉得有些无所适从，但阅读完下面的使用说明后，您会发现原来使用思路是简单而清晰的，而且，当对~\LaTeX{}~ 有一定的认识和了解后，会发现其相对~Word~类排版系统的极具吸引力的优秀特性。所以，如果您是初学者，请不要退缩，请稍加尝试和坚持，让自己领略到~\LaTeX{}~的非凡魅力。 并可以通过阅读相关资料如~ \citep{wikibook2014latex}~ 来完善自己的使用知识。
+为方便使用及更好地展示\LaTeX{}排版的优秀特性，本人对模板的框架和文件体系进行了细致地处理，尽可能地对各个功能和板块进行了模块化和封装，对于初学者来说，众多的文件目录也许会让人觉得有些无所适从，但阅读完下面的使用说明后，您会发现原来使用思路是简单而清晰的，而且，当对\LaTeX{}有一定的认识和了解后，会发现其相对Word类排版系统的极具吸引力的优秀特性。所以，如果您是初学者，请不要退缩，请稍加尝试和坚持，让自己领略到\LaTeX{}的非凡魅力。 并可以通过阅读相关资料如\citep{wikibook2014latex}来完善自己的使用知识。
 
 \section{先试试效果}
 
-ucasthesis~模板不仅只是提供了相应的类文件，同时也提供了包括参考文献等在内的完成学位论文的一切要素，所以，下载时，推荐下载整个~ucasthesis~文件夹，而不是单独的文档类。
+ucasthesis模板不仅只是提供了相应的类文件，同时也提供了包括参考文献等在内的完成学位论文的一切要素，所以，下载时，推荐下载整个ucasthesis文件夹，而不是单独的文档类。
 
-下载~ucasthesis~文件夹并解压后，请在文件夹内找到~“Compile.bat”，双击运行，即可获得本说明文档，而这，也完成了学习使用此模板撰写论文的一半进程，什么？这就学成一半了，这么简单？？？，是的，就这么简单！
+下载ucasthesis文件夹并解压后，请在文件夹内找到“Compile.bat”，双击运行，即可获得本说明文档，而这，也完成了学习使用此模板撰写论文的一半进程，什么？这就学成一半了，这么简单？？？，是的，就这么简单！
 
 编译完成后，可以进入各个子目录逛逛，熟悉下模板框架。
 
 \section{常见使用问题}
 
 \begin{enumerate}
-  \item 模板文档的编码为~utf-8~编码，若出现文本编辑器无法打开文档或打开文档乱码的问题，请检查您使用的编辑器对utf-8编码的支持，如果使用~WinEdit~作为文本编辑器，应在其
+  \item 模板文档的编码为UTF-8编码，若出现文本编辑器无法打开文档或打开文档乱码的问题，请检查您使用的编辑器对UTF-8编码的支持，如果使用WinEdt作为文本编辑器，应在其
 
   “options --》 Preferences --》 wrapping”
 
@@ -32,6 +32,54 @@ ucasthesis~模板不仅只是提供了相应的类文件，同时也提供了包
   “options --》 Preferences --》 Unicode”
 
   中的“Enable ANSI Format...”选项。
+  \item 注意：所有文件都必须采用UTF-8编码，你需要将所有源文件保存为 UTF-8 编码。否则编译后生成的文档将出现乱码文本。
+  \item 推荐选择"xelatex"编译引擎编译。Compile.bat的默认设定为"xelatex"编译引擎。你也可以选择不使用此脚本编译，如直接使用 WinEdt编译。注意：WinEdt的默认设定为"PDFTeXify"，为"pdflatex"编译引擎，若选择"xelatex"编译引擎，请进入下拉菜单进行选择。
+  \item 若编译过程中出现无法找到某些“package”的错误，如无法找到“xcolor.sty”，程序一般可以自动下载和安装相应的文件，否则，请进入\LaTeX{}软件的“package manager”下载，安装，并更新你的\LaTeX{}宏包库。
+  \item 字体控制。如果对字体控制有较高需求，请选择"xelatex"编译引擎，并在"commons.sty"中设置需要的字体，如启用"Times New Roman" 作为英文字体，在"commons.sty"的"105"行附近设置:
+
+      \verb+\setmainfont{Times New Roman}+
+  \item 在某些情况下拷贝pdf文档内容到word时存在乱码。
+      解决方式是选择安装adobe相应的字体库，请在公共网站（如百度云盘：\url{http://pan.baidu.com/share/home?uk=3188136325&view=share#category/type=0}）搜索并下载如下四种中文字体文件：
+      \begin{enumerate}
+          \item AdobeFangsongStd-Regular.otf （adobe 仿宋）
+          \item AdobeHeitiStd-Regular.otf（adobe 黑体）
+          \item AdobeKaitiStd-Regular.otf（adobe 楷体）
+          \item AdobeSongStd-Light.otf（adobe 宋体）
+      \end{enumerate}
+      下载字体文件后，双击安装相应字体。
+      
+      在"Thesis.tex"中设置启用adobe的字体:
+
+      \verb+\documentclass[doublesided,fontset=adobe]{Style/ucasthesis}%+
+
+      如果\LaTeX{}软件版本比较老旧，如Linux用户，ctex宏包没有更新，设置启用adobe的字体则为:
+
+      \verb+\documentclass[doublesided,adobefonts]{Style/ucasthesis}%+
+     
+     最后推荐选择"xelatex"编译引擎编译。
+
+     因为模版的设定考虑兼顾不同操作系统(Windows, Linux, Mac OS)并兼顾pdflatex和xelatex，为了模版的健壮性，上述方案并未作为原始设定。
+  \item 页眉页脚的设定在"commons.sty"的底部。如果需要在页眉页脚中添加章节字样，请使用
+      \begin{enumerate}
+          \item \verb+\CTEXthechapter+  显示: 第X章
+          \item \verb+\CTEXthesection+  显示: 第X节
+      \end{enumerate}
+      参见ctex宏包用户文档\url{http://ctan.mirror.rafal.ca/language/chinese/ctex/ctex.pdf}
+  \item "custom.sty"中定义了一系列数学命令。使用它们可以提高数学代码对不同样式的适应性。
+  \item 若"pdflatex"编译出现"pdfTeX error (font expansion): auto expansion is only possible with scalable fonts"。是因为"MikTex"安装后字体配置异常，请进入软件的“package manager”更新你的\LaTeX{}宏包库，并请进入
+      
+      "\verb+C:\Program Files\MiKTeX 2.9\miktex\bin\x64+"
+
+       找到并运行"updmap.exe"。
+   \item 模版在设计之初就尽可能地考虑了适应性。“致谢”，“简历及攻读学位期间发表的学术论文与科研成果”
+       等几乎所有条目都是通过最为通用的
+       
+       "\verb+\chapter{item name}+"  and "\verb+\section*{item name}+"
+
+       来显式实现的 (请仔细观察下"Frontpage.tex, Prematter.tex, Backmatter.tex")，从而你可以随意添加，放置，和修改他们，如同一般章节。对于图表目录名称则可在"ucasthesis.cfg"中进行修改。
+    \item 将subsection显示到目录当中: 在 "custom.sty", 修改
+        
+        \verb|\setcounter{tocdepth}{2}% the depth for the Table of Contents.|
 \end{enumerate}
 
 \section{各文档及目录简介}
@@ -42,17 +90,7 @@ Thesis.tex文档为主文档，其设计和规划了论文的整体框架，通�
 
 \subsection{Compile.bat}
 
-Compile.bat为编译此模板的Dos脚本，通过双击运行此脚本即可获得编译后的PDF文档，编译生成的文档及临时文件皆位于Tmp文件夹内。在此脚本中可以设定编译器为“pdflatex” or “xelatex” (default)。
-
-若倾向于使用WinEdit编译，则请在 "Thesis.tex" 和 "Main\textunderscore Content.tex" 中为所有文件提供完整的搜索路径。 如 
-
-\verb+\input{Appendix}+ 
-
-应改为 
-
-\verb+\input{./Tex/Appeddix}+。
-
-若不使用Compile.bat且不对文件进行正确索引，则编译会出现无法找到相应文件的错误。
+Compile.bat为编译此模板的Dos脚本，通过双击运行此脚本即可获得编译后的PDF文档，编译生成的文档及临时文件皆位于Tmp文件夹内。在此脚本中可以设定编译器为“pdflatex” or “xelatex”(默认设定，推荐)。
 
 \subsection{Tmp文件夹}
 
@@ -71,19 +109,19 @@ Style文件夹内包含有ucasthesis文档类的定义文件和配置文件，�
 
 \subsection{Tex文件夹}
 
-Tex文件夹内为论文的所有实体内容，正常情况下，这也是你\textbf{使用此模板撰写学文论文时，主要关注和修改的一个位置，注意：所有文件都必须采用UTF8编码，否则编译后将出现乱码文本}，详细分类介绍如下：
+Tex文件夹内为论文的所有实体内容，正常情况下，这也是你\textbf{使用此模板撰写学文论文时，主要关注和修改的一个位置，注意：所有文件都必须采用UTF-8编码，否则编译后将出现乱码文本}，详细分类介绍如下：
 
 \begin{itemize}
   \item Frontpage.tex： 为论文封面内容， 及中英文摘要。
   \item Main\textunderscore Content.tex： 对需要出现的Chapter进行索引，开始写论文时，可以只索引当前章节，以便快速编译和查看，当最终所有章节完成后，再对所有章节进行索引即可。
-  \item Chap\textunderscore XXXXX.tex： 为论文主体的各个章节，用户可根据需要添加和撰写，最终需要包含在论文中的章节，须在Main\textunderscore Content.tex中进行索引。你需要将所有源文件保存为 UTF-8 编码
+  \item Chap\textunderscore XXXXX.tex： 为论文主体的各个章节，用户可根据需要添加和撰写，最终需要包含在论文中的章节，须在Main\textunderscore Content.tex中进行索引。
   \item Appendix.tex： 为附录内容
   \item Backmatter.tex： 为发表文章信息，致谢部分等。
 \end{itemize}
 
 \subsection{Img文件夹}
 
-Img文件夹用于放置论文中所需要的图类文件，支持格式有：.jpg, .png, .pdf。其中，ucas.jpg为国科大校徽。
+Img文件夹用于放置论文中所需要的图类文件，支持格式有：.jpg, .png, .pdf。其中，ucas.pdf为国科大校徽。
 
 \subsection{Biblio文件夹}
 
@@ -93,7 +131,38 @@ Biblio文件夹内放置参考文献的索引信息文件：Myrefs.bib，此文�
 
 \subsection{数学公式}
 
-常用数学公式的命令代码模板，请见如下WiKi：\url{http://zh.wikipedia.org/wiki/Help:%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F}
+Navier-Stokes equations:
+\begin{equation} \label{eq:ns}
+    \begin{cases}
+        \frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\Vector{V}) = 0 \\
+        \frac{\partial (\rho\Vector{V})}{\partial t} + \nabla\cdot(\rho\Vector{V}\Vector{V}) = \nabla\cdot\Tensor{\sigma}\\
+        \frac{\partial (\rho E)}{\partial t} + \nabla\cdot(\rho E\Vector{V}) = \nabla\cdot(k\nabla T) + \nabla\cdot(\Tensor{\sigma}\cdot\Vector{V})
+    \end{cases}
+\end{equation}
+
+\begin{table}[!htbp]
+    \centering
+    %\footnotesize
+    %\setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{lcccccccc}
+        \hline\hline
+        %\multicolumn{2}{c}{Item} \\
+        %\cline{1-2}
+        Row 1 & $1$ & $2$ & $4$ & $5$ & $6$ & $7$ & $8$\\
+        \hline
+        Row 2 & $1$ & $2$ & $4$ & $5$ & $6$ & $7$ & $8$\\
+        \hline
+        Row 3 & $1$ & $2$ & $4$ & $5$ & $6$ & $7$ & $8$\\
+        \hline
+        Row 4 & $1$ & $2$ & $4$ & $5$ & $6$ & $7$ & $8$\\
+        \hline\hline
+    \end{tabular}
+    \caption{This is sample table}
+    \label{tab:sample}
+\end{table}
+
+常用数学公式的命令代码模板，请见如下WiKi：\url{https://en.wikibooks.org/wiki/LaTeX/Mathematics}
 
 \subsection{图片插入}
 
@@ -103,24 +172,24 @@ Biblio文件夹内放置参考文献的索引信息文件：Myrefs.bib，此文�
 \begin{verbatim}
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\MyFactor\textwidth]{ITC_Q_Criteria}
+  \includegraphics[width=0.45\textwidth]{ITC_Q_Criteria}
   \caption{Q判据等值面图}
   \label{fig:ITC_Q_Criteria}
 \end{figure}
 \end{verbatim}
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\MyFactor\textwidth]{ITC_Q_Criteria}
+  \includegraphics[width=0.45\textwidth]{ITC_Q_Criteria}
   \caption{Q判据等值面图}
   \label{fig:ITC_Q_Criteria}
 \end{figure}
 
-如果插图的上下空白区域过大，希望减少插入图片后的留白，以图片“Y”为例（图\ref{fig:Y}），可以使用如下代码模板：
+如果插图的空白区域过大，希望减少插入图片后的留白，以图片“Y”为例（图\ref{fig:Y}），可以使用如下代码模板：
 \begin{verbatim}
 \begin{figure}[!htbp]
   \centering
   %trim option's parameter order: left bottom right top
-  \includegraphics[trim = 0mm 25mm 0mm 30mm, clip]{Y}
+  \includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{Y}
   \caption{Tandem cylinder clip view}
   \label{fig:Y}
 \end{figure}
@@ -128,33 +197,33 @@ Biblio文件夹内放置参考文献的索引信息文件：Myrefs.bib，此文�
 \begin{figure}[!htbp]
   \centering
   %trim option's parameter order: left bottom right top
-  \includegraphics[trim = 0mm 25mm 0mm 30mm, clip, width=\MyFactor\textwidth]{Y}
-  \caption{Tandem cylinder clip view}
+  \includegraphics[trim = 30mm 0mm 30mm 0mm, clip, width=0.45\textwidth]{Y}
+  \caption{Shock diffraction.}
   \label{fig:Y}
 \end{figure}
 
-多图的插入如图\ref{fig:HC_OASPL}，其代码如下，其中，\verb|\MyFactor|和\verb|\MySubFactor|是在“custom.sty”中定义的两个小数，用于全局控制插入图片的宽度，用户可以适当调整其数值，或者直接在命令调用时，用需要的小数值替代它们就行。
+多图的插入如图\ref{fig:HC_OASPL}，其代码如下。
 \begin{verbatim}
 \begin{figure}[!htbp]
   \centering
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_A}
     \caption{}
     \label{fig:HC_OASPL_A}
   \end{subfigure}%
   ~%add desired spacing
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_B}
     \caption{}
     \label{fig:HC_OASPL_B}
   \end{subfigure}
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_C}
     \caption{}
     \label{fig:HC_OASPL_C}
   \end{subfigure}%
   ~%add desired spacing
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_D}
     \caption{}
     \label{fig:HC_OASPL_D}
@@ -165,24 +234,24 @@ Biblio文件夹内放置参考文献的索引信息文件：Myrefs.bib，此文�
 \end{verbatim}
 \begin{figure}[!htbp]
   \centering
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_A}
     \caption{}
     \label{fig:HC_OASPL_A}
   \end{subfigure}%
   ~%add desired spacing
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_B}
     \caption{}
     \label{fig:HC_OASPL_B}
   \end{subfigure}
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_C}
     \caption{}
     \label{fig:HC_OASPL_C}
   \end{subfigure}%
   ~%add desired spacing
-  \begin{subfigure}[b]{\MySubFactor\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{HC_OASPL_D}
     \caption{}
     \label{fig:HC_OASPL_D}
@@ -228,3 +297,5 @@ parenthetical mode， 输入：
 \verb+\usepackage[alpha]{commons}+ $\%$ alpha citation style. textual: not available; parenthetical: [Jon95]
 
 参考文献索引更为详细的信息，请见\citep{wikibook2014latex}。
+
+\nocite{*}% show all the bibliography entries

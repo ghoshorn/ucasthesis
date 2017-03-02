@@ -1,8 +1,8 @@
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%***************************** version information ********************************
+%%%%***************************** Version Information ********************************
 %%
-%% Copyright (C) 2014-2018 Huangrui Mo <huangrui.mo@gmail.com> 
+%% Copyright (C) Huangrui Mo <huangrui.mo@gmail.com> 
 %% This is free software: you can redistribute it and/or modify it
 %% under the terms of the GNU General Public License as published by
 %% the Free Software Foundation, either version 3 of the License, or
@@ -10,7 +10,7 @@
 %%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{ucasthesis}
-  [2016/03/05 v1.0 ucasthesis
+  [2014/10/01 v1.0 ucasthesis
    document class]
 %%%%% --------------------------------------------------------------------------------
 %%
@@ -41,7 +41,7 @@
 \ProcessOptions\relax
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%*************************** loadclass infomation *********************************
+%%%%*************************** Loadclass Infomation *********************************
 %%
 \ifUCAS@doublesided% if double-sided printing enabled
   \LoadClass[UTF8,a4paper,twoside,fntef,12pt]{ctexbook}
@@ -50,22 +50,24 @@
 \fi
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%***************************** package infomation *********************************
+%%%%***************************** Package Infomation *********************************
 %%
+%% color packages
+\RequirePackage[usenames,dvipsnames,table]{xcolor}%
 %% math packages
 \RequirePackage{amsmath,amssymb,amstext}
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%************************ load class configuretion ********************************
+%%%%************************ Load Class Configuretion ********************************
 %%
 \AtEndOfPackage{%class cfg loaded after package, makes commands at preamble take effect
   \makeatletter
-  \InputIfFileExists{ucasthesis.cfg}{}{}
+  \InputIfFileExists{Style/ucasthesis.cfg}{}{}
   \makeatother
 }
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%******************************* page layout **************************************
+%%%%******************************* Page Layout **************************************
 %%
 %% part one -- horizontal widths
 %% left side width + textwidth + right side width = paperwidth
@@ -99,15 +101,20 @@
 \pagestyle{plain}
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%********************* some style control commands ********************************
+%%%%********************* Some Style Control Commands ********************************
 %%
+%% redefine cleardoublepage to empty pages
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+    \thispagestyle{empty}%
+\hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 %% underline
+\renewcommand{\CJKunderlinecolor}{\color[rgb]{0,0,0}}
 \def\UCAS@underline[#1]#2{%
-    {\color{black} \CJKunderline{\hbox to #1{\hfill#2\hfill}}}}
+    \CJKunderline{\hbox to #1{\hfill#2\hfill}}}
 \def\UCASunderline{\@ifnextchar[\UCAS@underline\CJKunderline}
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%********************** chinese titlepage items ***********************************
+%%%%********************** Chinese Titlepage Items ***********************************
 %%
 \newcommand\confidential[1]{\def\UCAS@value@confidential{#1}}
 \newcommand\schoollogo[2]{\def\UCAS@value@schoollogo{\includegraphics[#1]{#2}}}
@@ -126,20 +133,20 @@
 \newcommand\chinesedate[1]{\def\UCAS@value@chinesedate{#1}}
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%**************************** make chinese titlepage ******************************
+%%%%**************************** Make Chinese Titlepage ******************************
 %%
 \renewcommand\maketitle{%
   \cleardoublepage
   \thispagestyle{empty}
   \begin{center}
-    \heiti\zihao{4}
-    \hfill{} {\UCAS@label@confidential \UCASunderline[40pt]{\songti\zihao{5}\UCAS@value@confidential}}
+    \zihao{4}\bfseries\songti
+    \hfill{} {\UCAS@label@confidential \UCASunderline[50pt]{\zihao{5}\songti\UCAS@value@confidential}}
     \vskip \stretch{3}
       \UCAS@value@schoollogo
     \vskip \stretch{4}
-      {\heiti\zihao{1} \UCAS@value@degree\UCAS@label@thesis}
+      {\zihao{1}\heiti \UCAS@value@degree\UCAS@label@thesis}
     \vskip \stretch{4}
-      {\heiti\zihao{3} \UCASunderline{\ \UCAS@value@title\ }}
+      {\zihao{3} \UCASunderline{\ \UCAS@value@title\ }}
     \vskip \stretch{6}
     \def\tabcolsep{1pt}
     \def\arraystretch{1.4}
@@ -185,7 +192,7 @@
 }
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%*********************** english titlepage items **********************************
+%%%%*********************** English Titlepage Items **********************************
 %%
 \newcommand\englishtitle[1]{\def\UCAS@value@englishtitle{#1}}
 \newcommand\englishauthor[1]{\def\UCAS@value@englishauthor{#1}}
@@ -196,20 +203,20 @@
 \newcommand\englishdate[1]{\def\UCAS@value@englishdate{#1}}
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%*********************** make english titlepage ***********************************
+%%%%*********************** Make English Titlepage ***********************************
 %%
 \newcommand\makeenglishtitle{%
   \cleardoublepage
   \thispagestyle{empty}
   \begin{center}
-    \bfseries\zihao{3}
+    \zihao{3}\bfseries
     \vspace*{20pt}
     {\UCASunderline{\ \UCAS@value@englishtitle\ }}
     \vskip \stretch{1}
-    By \\
+    by \\
     \UCAS@value@englishauthor
     \vskip \stretch{2}
-    \bfseries\zihao{4}
+    \zihao{4}\bfseries
     \UCAS@label@englishstatement
     \vskip 30pt
     \UCAS@value@englishinstitute
@@ -224,14 +231,14 @@
 }
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%*********************** make author declaration ***********************************
+%%%%*********************** Make Author Declaration ***********************************
 %%
 \newcommand\makedeclaration{%
   \cleardoublepage
   \thispagestyle{empty}
 
   \begin{center}
-      {\heiti\zihao{3} \UCAS@value@declare@create}
+      {\zihao{3}\heiti \UCAS@value@declare@create}
   \end{center}
 
   \UCAS@value@declare@creativity\\
@@ -241,7 +248,7 @@
   \vskip 150pt
 
   \begin{center}
-      {\heiti\zihao{3} \UCAS@value@declare@right}
+      {\zihao{3}\heiti \UCAS@value@declare@right}
   \end{center}
 
   \UCAS@value@declare@rights
@@ -257,31 +264,89 @@
 }
 %%%%% --------------------------------------------------------------------------------
 %%
-%%%%****************************** new environments **********************************
+%%%%****************************** New Environments **********************************
 %%
 %% define chinese abstract
 \newenvironment{abstract}
 {\chapter[\UCAS@label@abstract]{
-     {\heiti\zihao{3} \UCAS@value@title}
+     {\zihao{3}\heiti \UCAS@value@title}
      \vskip 25pt
-     {\heiti\zihao{-3} \UCAS@label@abstract}
+     {\zihao{-3}\heiti \UCAS@label@abstract}
   }}
   {}
 %% define chinese keywords
 \newcommand\keywords[1]{%
-    \vspace{2ex}\noindent{\heiti\zihao{4} \UCAS@label@keywords} #1}
+    \vspace{2ex}\noindent{\zihao{4}\heiti \UCAS@label@keywords} #1}
 %% define engish abstract
 \newenvironment{englishabstract}
 {\chapter[\UCAS@label@englishabstract]{
-     {\bfseries\zihao{3} \UCAS@value@englishtitle}
+     {\zihao{3}\bfseries \UCAS@value@englishtitle}
      \vskip 25pt
-     {\bfseries\zihao{-3} \UCAS@label@englishabstract}
+     {\zihao{-3}\bfseries \UCAS@label@englishabstract}
   }}
   {}
 %% define engish keywords
 \newcommand\englishkeywords[1]{%
-  \vspace{2ex}\noindent{\bfseries\zihao{4} \UCAS@label@englishkeywords} #1}
+  \vspace{2ex}\noindent{\zihao{4}\bfseries \UCAS@label@englishkeywords} #1}
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%**************************** Dotted Line in TOC **********************************
+%%
+%% define spacing and length
+\def\@dotsep{1.5mu}% spacing for dots
+\def\@pnumwidth{2em}% spacing between titles and page numbers
+\def\@tocrmarg{2em}% right margin indentation
+\def\@chaptervspace{8bp}% spacing between chapter titles
+\def\@dottedtocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th\mkern \@dotsep \cdot\mkern \@dotsep$}\hfill
+     \nobreak
+     \hb@xt@\@pnumwidth{\hfil\normalfont \normalcolor #5}%
+     \par\penalty\@highpenalty}%
+  \fi}
+\renewcommand*\l@part[2]{%
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty{-\@highpenalty}%
+    \addvspace{2.25em \@plus\p@}%
+    \setlength\@tempdima{3em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+       \large \bfseries #1
+       \leaders\hbox{$\m@th\mkern \@dotsep \cdot\mkern \@dotsep$}
+       \hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \nobreak
+         \global\@nobreaktrue
+         \everypar{\global\@nobreakfalse\everypar{}}%
+    \endgroup
+  \fi}
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip \@chaptervspace \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak
+      \leaders\hbox{$\m@th\mkern \@dotsep \cdot\mkern \@dotsep$}
+      \hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
 %%%%% --------------------------------------------------------------------------------
 \endinput
-%% End of file `ucasthesis.cls'.
+%% End of file
 %%%%% --------------------------------------------------------------------------------
